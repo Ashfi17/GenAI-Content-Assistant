@@ -33,7 +33,7 @@ class CampaignVariants(BaseModel):
 
 # App Configuration
 st.set_page_config(
-    page_title="GenAI Content Assistant",
+    page_title="GenAI Content Assistant V1",
     page_icon="🎨",
     layout="wide"
 )
