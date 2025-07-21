@@ -12,6 +12,8 @@ from io import BytesIO
 import zipfile
 from PIL import Image
 
+from config.settings import GOOGLE_CLOUD_PROJECT_ID,GOOGLE_CLOUD_REGION
+
 # Pydantic Models
 class ColorPalette(BaseModel):
     primary: str = Field(description="Primary color with hex code")
@@ -51,8 +53,8 @@ def configure_api():
         from dotenv import load_dotenv
         load_dotenv()
         GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-        project_id = os.getenv("PROJECT_ID", "gen-lang-client-0441709835")  # Default project ID
-        location = os.getenv("LOCATION", "us-central1")  # Default location
+        project_id = GOOGLE_CLOUD_PROJECT_ID  # Default project ID
+        location = GOOGLE_CLOUD_REGION  # Default location
 
         if not GEMINI_API_KEY:
             st.error("GEMINI_API_KEY not found. Please set it in your .env file.")
@@ -79,7 +81,6 @@ def configure_api():
                 location=location
             )
             st.session_state.genai_client = client
-            st.success("✅ API configured successfully!")
             return True
         except Exception as e:
             st.error(f"Error configuring GenAI Client: {e}")
@@ -156,9 +157,9 @@ def generate_image(prompt: str, variant_name: str) -> bytes:
         
     try:
         client = st.session_state.genai_client
-        model_name = 'models/imagen-3.0-generate-002'  # Using the more stable model
+        model_name = 'models/imagen-4.0-generate-preview-06-06'  # Using the more stable model
         
-        st.info(f"Generating image with {model_name} for prompt: '{prompt[:50]}...'")
+        # st.info(f"Generating image with {model_name} for prompt: '{prompt[:50]}...'")
         
         response = client.models.generate_images(
             model=model_name,
