@@ -7,7 +7,6 @@ from typing import List, Dict, Any
 import json
 import random
 import os
-from dotenv import load_dotenv
 import base64
 from io import BytesIO
 import zipfile
@@ -48,15 +47,20 @@ if 'genai_client' not in st.session_state:
 def configure_api():
     """Configure Gemini API and GenAI Client"""
     # Load API keys
-    load_dotenv()
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+        GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+        project_id = os.getenv("PROJECT_ID", "gen-lang-client-0441709835")  # Default project ID
+        location = os.getenv("LOCATION", "us-central1")  # Default location
 
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    project_id = os.getenv("PROJECT_ID", "gen-lang-client-0441709835")  # Default project ID
-    location = os.getenv("LOCATION", "us-central1")  # Default location
-    
-    if not GEMINI_API_KEY:
-        st.error("GEMINI_API_KEY not found. Please set it in your .env file.")
-        st.stop()   
+        if not GEMINI_API_KEY:
+            st.error("GEMINI_API_KEY not found. Please set it in your .env file.")
+            st.stop()
+    except ModuleNotFoundError:
+        GEMINI_API_KEY = st.secrets["API_KEY"]
+        project_id = st.secrets["PROJECT_ID"]
+        location = st.secrets["LOCATION"]
 
     # with st.sidebar:
     #     st.subheader("API Configuration")
