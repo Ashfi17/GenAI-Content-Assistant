@@ -33,7 +33,7 @@ class CampaignVariants(BaseModel):
 
 # App Configuration
 st.set_page_config(
-    page_title="GenAI Content Assistant V1",
+    page_title="GenAI Content Assistant",
     page_icon="🎨",
     layout="wide"
 )
@@ -306,7 +306,7 @@ def display_variant_card(variant: CampaignAsset, variant_name: str, metrics: Dic
             st.write(variant.font_recommendation)
 
 def main():
-    st.title("🎨 GenAI Content Assistant v1")
+    st.title("🎨 GenAI Content Assistant")
     st.markdown("Generate campaign assets with AI-powered A/B testing variants")
     
     # API Configuration
@@ -337,7 +337,7 @@ def main():
     )
     
     # Generate Button
-    if st.button("🚀 Generate Campaign Variants", type="primary"):
+    if st.button("Generate Campaign Variants", type="primary"):
         if not brief:
             st.error("Please enter a creative brief.")
             return
@@ -347,7 +347,7 @@ def main():
             if variants:
                 st.session_state.generated_variants = variants
                 st.session_state.generated_images = {}  # Reset images
-                st.success("✅ Campaign variants generated successfully!")
+                st.success("Campaign variants generated successfully!")
             else:
                 st.error("Failed to generate variants. Please try again.")
     
@@ -363,7 +363,7 @@ def main():
         metrics_b = simulate_performance_metrics()
         
         # Display variants in tabs
-        tab1, tab2 = st.tabs(["Variant A", "Variant B"])
+        tab1, tab2 = st.tabs(["Variant A (Bold and direct)", "Variant B (Creative and artistic)"])
         
         with tab1:
             display_variant_card(variants.variant_a, "A", metrics_a)
@@ -375,9 +375,8 @@ def main():
         # Recommendation
         st.header("🏆 AI Recommendation")
         best_metrics = [
-            ("A", metrics_a['ctr'] + metrics_a['engagement'] * 0.1 + metrics_a['conversion'] * 2),
-            ("B", metrics_b['ctr'] + metrics_b['engagement'] * 0.1 + metrics_b['conversion'] * 2),
-            
+            ("A", metrics_a['ctr'] + metrics_a['engagement']  + metrics_a['conversion']),
+            ("B", metrics_b['ctr'] + metrics_b['engagement']  + metrics_b['conversion']),
         ]
         best_variant = max(best_metrics, key=lambda x: x[1])[0]
         
