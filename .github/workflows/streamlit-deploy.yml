@@ -105,7 +105,7 @@ jobs:
           pip list >> test_report.md
 
       - name: 📤 Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: test_report.md
