@@ -306,7 +306,7 @@ def display_variant_card(variant: CampaignAsset, variant_name: str, metrics: Dic
             st.write(variant.font_recommendation)
 
 def main():
-    st.title("🎨 GenAI Content Assistant")
+    st.title("🎨 GenAI Content Assistant v1")
     st.markdown("Generate campaign assets with AI-powered A/B testing variants")
     
     # API Configuration
