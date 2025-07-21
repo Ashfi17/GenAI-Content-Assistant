@@ -138,7 +138,7 @@ jobs:
           echo "✅ **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Trigger:** Push to main branch" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-
+          echo "🔗 **Expected App URL:** https://your-app-name-$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]').streamlit.app" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "⏱️ **Status:** Deployment initiated - Streamlit Community Cloud will handle the rest!" >> $GITHUB_STEP_SUMMARY
 
